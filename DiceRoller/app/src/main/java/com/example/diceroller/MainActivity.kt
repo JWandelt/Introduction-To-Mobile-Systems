@@ -1,23 +1,46 @@
 package com.example.diceroller
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
+
+    private lateinit var sensorManager: SensorManager
+
+    private val dices = arrayOf("1", "2", "3")
+    var numberOfDices: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        lateinit var sensorManager: SensorManager
+        val spinner: Spinner = findViewById(R.id.spinner_dices)
+        val arrayAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, dices)
+        spinner.adapter = arrayAdapter
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                numberOfDices = p2 + 1
+                Toast.makeText(
+                    applicationContext,
+                    "number of dices is $numberOfDices",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+
+        }
+
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensorManager.registerListener(
             this,
@@ -27,25 +50,47 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         val rollButton: Button = findViewById(R.id.button)
         rollButton.setOnClickListener {
-            rollDice()
+            rollDice(numberOfDices)
         }
     }
 
-    private fun rollDice() {
-        val dice = Dice(6)
-        val diceRoll = dice.roll()
-        val resultTextView: TextView = findViewById(R.id.textView)
-        resultTextView.text = diceRoll.toString()
-        Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show()
+    private fun rollDice(dicesToRoll: Int) {
+        val resultTextView1: TextView = findViewById(R.id.dice_output_1)
+        val resultTextView2: TextView = findViewById(R.id.dice_output_2)
+        val resultTextView3: TextView = findViewById(R.id.dice_output_3)
+        val dice1 = Dice(6)
+        val dice2 = Dice(6)
+        val dice3 = Dice(6)
+        when (dicesToRoll) {
+            1 -> {
+                val diceRoll1 = dice1.roll()
+                resultTextView1.text = diceRoll1.toString()
+            }
+            2 -> {
+                val diceRoll1 = dice1.roll()
+                resultTextView1.text = diceRoll1.toString()
+                val diceRoll2 = dice2.roll()
+                resultTextView2.text = diceRoll2.toString()
+            }
+            3 -> {
+                val diceRoll1 = dice1.roll()
+                resultTextView1.text = diceRoll1.toString()
+                val diceRoll2 = dice2.roll()
+                resultTextView2.text = diceRoll2.toString()
+                val diceRoll3 = dice3.roll()
+                resultTextView3.text = diceRoll3.toString()
+            }
+        }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onSensorChanged(event: SensorEvent?) {
         val accelerometer: TextView = findViewById(R.id.accelerometer_data)
         accelerometer.text = "x = ${event!!.values[0]}\n\n" +
                 "y = ${event.values[1]}\n\n" +
                 "z = ${event.values[2]}"
         if (event.values[0] >= 10) {
-            rollDice()
+            rollDice(numberOfDices)
         }
     }
 
