@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SquareRoots</string>
+    <string name="quadratic_coefficient">Quadratic coefficient</string>
+    <string name="linear_coefficient">Linear coefficient</string>
+    <string name="constant">Constant</string>
+    <string name="calculate_button">Calculate</string>
+    <string name="output_view">TextView</string>
+</resources>
