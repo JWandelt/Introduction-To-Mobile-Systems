@@ -18,7 +18,7 @@
         tools:text="1" />
 
     <TextView
-        android:id="@+id/dice_output_3"
+        android:id="@+id/dice_output_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="84dp"
@@ -32,7 +32,7 @@
         tools:text="1" />
 
     <TextView
-        android:id="@+id/dice_output_2"
+        android:id="@+id/dice_output_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="36sp"
@@ -65,7 +65,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.37" />
+        app:layout_constraintVertical_bias="0.241" />
 
     <Spinner
         android:id="@+id/spinner_dices"
@@ -81,5 +81,42 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.06"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageView
+        android:id="@+id/first_dice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        app:layout_constraintBottom_toTopOf="@+id/dice_output_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accelerometer_data" />
+
+    <ImageView
+        android:id="@+id/second_dice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        app:layout_constraintBottom_toTopOf="@+id/dice_output_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accelerometer_data"
+        app:srcCompat="@drawable/empty_view" />
+
+    <ImageView
+        android:id="@+id/third_dice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        app:layout_constraintBottom_toTopOf="@+id/dice_output_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accelerometer_data"
+        app:srcCompat="@drawable/empty_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
