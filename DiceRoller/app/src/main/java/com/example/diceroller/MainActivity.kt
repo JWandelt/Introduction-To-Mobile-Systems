@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private val dices = arrayOf("1", "2", "3")
     var numberOfDices: Int = 1
 
-    val diceMap = mapOf(1 to "dice_1", 2 to "dice_2", 3 to "dice_3", 4 to "dice_4", 5 to "dice_5", 6 to "dice_6")
+    private val diceMap = mapOf(1 to "dice_1", 2 to "dice_2", 3 to "dice_3", 4 to "dice_4", 5 to "dice_5", 6 to "dice_6")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,11 +31,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 numberOfDices = p2 + 1
-                Toast.makeText(
-                    applicationContext,
-                    "number of dices is $numberOfDices",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -73,6 +68,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 resultTextView1.text = diceRoll1.toString()
                 mapValue = diceMap.get(diceRoll1)!!
                 diceImage1.setImageResource(this.resources.getIdentifier(mapValue, "drawable", this.packageName))
+                diceImage2.setImageResource(R.drawable.empty_view)
+                resultTextView2.text = null
+                diceImage3.setImageResource(R.drawable.empty_view)
+                resultTextView3.text = null
             }
             2 -> {
                 val diceRoll1 = dice1.roll()
@@ -83,6 +82,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 resultTextView2.text = diceRoll2.toString()
                 mapValue = diceMap.get(diceRoll2)!!
                 diceImage2.setImageResource(this.resources.getIdentifier(mapValue, "drawable", this.packageName))
+                diceImage3.setImageResource(R.drawable.empty_view)
+                resultTextView3.text = null
             }
             3 -> {
                 val diceRoll1 = dice1.roll()
@@ -103,11 +104,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     @SuppressLint("SetTextI18n")
     override fun onSensorChanged(event: SensorEvent?) {
-        val accelerometer: TextView = findViewById(R.id.accelerometer_data)
-        accelerometer.text = "x = ${event!!.values[0]}\n\n" +
-                "y = ${event.values[1]}\n\n" +
-                "z = ${event.values[2]}"
-        if (event.values[0] >= 10) {
+        if (event!!.values[0] >= 10) {
             rollDice(numberOfDices)
         }
     }
